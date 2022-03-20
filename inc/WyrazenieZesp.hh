@@ -9,7 +9,7 @@
 /*!
  * Modeluje zbior operatorow arytmetycznych.
  */
-enum Operator { Op_Dodaj, Op_Odejmij, Op_Mnoz, Op_Dziel };
+enum Operator { Dodawanie, Odejmowanie, Mnozenie, Dzielenie };
 
 
 
@@ -28,8 +28,12 @@ struct WyrazenieZesp {
  *
  */
 
+
 bool WczytajWyrazenieZesp(WyrazenieZesp &rWyrZ, std::istream &rStrmWe);
 void Wyswietl(WyrazenieZesp  WyrZ);
 LZespolona Oblicz(WyrazenieZesp  WyrZ);
+
+ostream & operator <<(ostream &Wyj, WyrazenieZesp WyrZ);
+istream & operator >>(istream &Wej, WyrazenieZesp &WyrZ);
 
 #endif
