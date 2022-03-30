@@ -1,26 +1,20 @@
 #include "StatystykaTestu.hh"
 
-void reset(StatystykaTestu &nowe)
+
+void StatystykaTestu::Accurate1()
 {
-    nowe.Accurate = 0;
-    nowe.failure = 0;
-    nowe.procent = 0;
+    Accurate++;
 }
 
-void Accurate(StatystykaTestu &nowe)
+void StatystykaTestu::failure1()
 {
-    nowe.Accurate++;
+    failure++;
 }
 
-void failure(StatystykaTestu &nowe)
+void StatystykaTestu::Wyswietl()
 {
-    nowe.failure++;
-}
-
-void Wyswietl(StatystykaTestu StatTestu)
-{
-    double procenty = 100.0 * StatTestu.Accurate / (StatTestu.Accurate + StatTestu.failure);
-    cout << "Ilosc dobrych odpowiedzi: " << StatTestu.Accurate << endl;
-    cout << "Ilosc blednych odpowiedzi: " << StatTestu.failure << endl;
+    double procenty = 100.0 * Accurate / (Accurate + failure);
+    cout << "Ilosc dobrych odpowiedzi: " << Accurate << endl;
+    cout << "Ilosc blednych odpowiedzi: " << failure << endl;
     cout << "Wynik procentowy poprawnych odpowiedzi: " << procenty <<"%"<< endl;
 }

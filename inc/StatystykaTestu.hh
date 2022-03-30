@@ -5,16 +5,24 @@
 
 using namespace std;
 
-struct StatystykaTestu {
+class StatystykaTestu {
+    private:
     int Accurate;
     int failure;
     double procent;
-
+   
+    public:
+    StatystykaTestu()
+    {
+        Accurate=0;
+        failure=0;
+        procent=0;
+    }
+    void Accurate1();
+    void failure1();
+    void Wyswietl();
 };
 
-void reset(StatystykaTestu &nowe);
-void Accurate(StatystykaTestu &nowe);
-void failure(StatystykaTestu &nowe);
-void Wyswietl( StatystykaTestu  StatTestu );
+
 #endif
 

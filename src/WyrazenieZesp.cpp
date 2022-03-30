@@ -6,40 +6,40 @@
  * w pliku naglowkowym.
  */
 
-bool WczytajWyrazenieZesp(WyrazenieZesp &rWyrZ, std::istream &rStrmWe)
+bool WyrazenieZesp::WczytajWyrazenieZesp( std::istream &rStrmWe)
 {
   char znak;
 
-  Wczytaj(rWyrZ.Arg1, rStrmWe);
+  Arg1.Wczytaj(rStrmWe);
   rStrmWe >> znak;
 
   switch (znak)
   {
   case '+':
-    rWyrZ.Op = Dodawanie;
+    Op = Dodawanie;
     break;
   case '-':
-    rWyrZ.Op = Odejmowanie;
+    Op = Odejmowanie;
     break;
   case '*':
-    rWyrZ.Op = Mnozenie;
+    Op = Mnozenie;
     break;
   case '/':
-    rWyrZ.Op = Dzielenie;
+    Op = Dzielenie;
     break;
   default:
     return false;
     break;
   }
 
-  Wczytaj(rWyrZ.Arg2, rStrmWe);
+  Arg2.Wczytaj( rStrmWe);
   return rStrmWe.fail() == false;
 }
 
-void Wyswietl(WyrazenieZesp WyrZ)
+void WyrazenieZesp::Wyswietl()
 {
-  Wyswietl(WyrZ.Arg1);
-  switch (WyrZ.Op)
+  Arg1.Wyswietl();
+  switch (Op)
   {
   case Dodawanie:
   {
@@ -62,7 +62,7 @@ void Wyswietl(WyrazenieZesp WyrZ)
   }
   break;
   }
-  Wyswietl(WyrZ.Arg2);
+  Arg2.Wyswietl();
   
 
   
@@ -70,29 +70,29 @@ void Wyswietl(WyrazenieZesp WyrZ)
 
 }
 
-LZespolona Oblicz(WyrazenieZesp WyrZ)
+LZespolona WyrazenieZesp::Oblicz()
 {
   LZespolona Wynik;
-  switch (WyrZ.Op)
+  switch (Op)
   {
   case Dodawanie:
   {
-    Wynik = WyrZ.Arg1 + WyrZ.Arg2;
+    Wynik = Arg1 + Arg2;
   }
   break;
   case Dzielenie:
   {
-    Wynik = WyrZ.Arg1 / WyrZ.Arg2;
+    Wynik = Arg1 / Arg2;
   }
   break;
   case Mnozenie:
   {
-    Wynik = WyrZ.Arg1 * WyrZ.Arg2;
+    Wynik = Arg1 * Arg2;
   }
   break;
   case Odejmowanie:
   {
-    Wynik = WyrZ.Arg1 - WyrZ.Arg2;
+    Wynik = Arg1 - Arg2;
   }
   break;
   }
@@ -103,8 +103,8 @@ LZespolona Oblicz(WyrazenieZesp WyrZ)
 
 ostream & operator <<(ostream &Wyj, WyrazenieZesp WyrZ)
 {
-  Wyj<<WyrZ.Arg1;
-switch (WyrZ.Op)
+  Wyj<<WyrZ.get_Arg1();
+switch (WyrZ.get_Op())
   {
   case Dodawanie:
   {
@@ -127,7 +127,7 @@ switch (WyrZ.Op)
   }
   break;
   }
-    Wyj<<WyrZ.Arg2;
+    Wyj<<WyrZ.get_Arg2();
 
     return Wyj;
 }
@@ -135,28 +135,28 @@ switch (WyrZ.Op)
 istream & operator >>(istream &Wej, WyrazenieZesp &WyrZ)
 {
   char znak;
-  Wej>>WyrZ.Arg1;
+  Wej>>WyrZ.set_Arg1();
   Wej >> znak;
 
   switch (znak)
   {
   case '+':
-    WyrZ.Op = Dodawanie;
+    WyrZ.set_Op() = Dodawanie;
     break;
   case '-':
-    WyrZ.Op = Odejmowanie;
+    WyrZ.set_Op() = Odejmowanie;
     break;
   case '*':
-    WyrZ.Op = Mnozenie;
+    WyrZ.set_Op() = Mnozenie;
     break;
   case '/':
-    WyrZ.Op = Dzielenie;
+    WyrZ.set_Op() = Dzielenie;
     break;
   default:
     Wej.setstate(ios::failbit);
     break;
   }
-   Wej>>WyrZ.Arg2;
+   Wej>>WyrZ.set_Arg2();
 
  return Wej;
 }

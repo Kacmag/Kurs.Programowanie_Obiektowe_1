@@ -10,7 +10,6 @@ using namespace std;
 void WykonajTest(istream &rStrmWej)
 {
   StatystykaTestu stat;
-  reset(stat);
 
   WyrazenieZesp WyrZ_PytanieTestowe;
   LZespolona Wynik;
@@ -40,15 +39,15 @@ void WykonajTest(istream &rStrmWej)
         }
       }
 
-      if ((Obliczono = Oblicz(WyrZ_PytanieTestowe)) == Wynik)
+      if ((Obliczono = WyrZ_PytanieTestowe.Oblicz()) == Wynik)
       {
          cout << "Odpowiedz jest prawidlowa" << endl;
-        Accurate(stat);
+        stat.Accurate1();
       }
       else
       {
         cout << "Odpowiedz nie jest prawidlowa, wynik to: " << Obliczono << endl;
-        failure(stat);
+        stat.failure1();
       }
     }
     else
@@ -57,7 +56,7 @@ void WykonajTest(istream &rStrmWej)
       rStrmWej.ignore(1024, '\n'); 
     }
   } while (!rStrmWej.eof());
-  Wyswietl(stat);
+ stat.Wyswietl();
 }
 
 

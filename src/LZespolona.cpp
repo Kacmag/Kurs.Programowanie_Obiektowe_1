@@ -11,39 +11,39 @@ using namespace std;
  * Zwraca:
  *    Sume dwoch skladnikow przekazanych jako parametry.
  */
-LZespolona  operator + (LZespolona  Skl1,  LZespolona  Skl2)
+LZespolona LZespolona::operator + (  LZespolona  Skl2)
 {
   LZespolona  Wynik;
 
-  Wynik.re = Skl1.re + Skl2.re;
-  Wynik.im = Skl1.im + Skl2.im;
+  Wynik.set_re() = re + Skl2.get_re();
+  Wynik.set_im() = im + Skl2.get_im();
   return Wynik;
 }
 
-LZespolona  operator * (LZespolona  Skl1,  LZespolona  Skl2)
+LZespolona LZespolona::operator*(  LZespolona  Skl2)
 {
   LZespolona  Wynik;
 
-  Wynik.re = (Skl1.re * Skl2.re) - (Skl1.im * Skl2.im);
-  Wynik.im = (Skl1.re * Skl2.im) - (Skl1.im * Skl2.re);
+  Wynik.set_re() = (re * Skl2.get_re()) - (im * Skl2.get_im());
+  Wynik.set_im() = (re * Skl2.get_im()) - (im * Skl2.get_re());
   return Wynik;
 }
 
-LZespolona  operator - (LZespolona  Skl1,  LZespolona  Skl2)
+LZespolona LZespolona::operator - (  LZespolona  Skl2)
 {
   LZespolona  Wynik;
 
-  Wynik.re = Skl1.re - Skl2.re;
-  Wynik.im = Skl1.im - Skl2.im;
+  Wynik.set_re() = re - Skl2.get_re();
+  Wynik.set_im() = im - Skl2.get_im();
   return Wynik;
 }
 
-LZespolona  operator/(LZespolona  Skl1,  double  Skl2)
+LZespolona LZespolona::operator/(  double  Skl2)
 {
   LZespolona  Wynik;
 
-  Wynik.re = Skl1.re/Skl2;
-  Wynik.im = Skl1.im/Skl2;
+  Wynik.set_re() = re/Skl2;
+  Wynik.set_im() = im/Skl2;
   return Wynik;
 }
 
@@ -52,49 +52,49 @@ LZespolona  operator/(LZespolona  Skl1,  double  Skl2)
 
 
 
-LZespolona Sprzezenie(LZespolona Skl)
+LZespolona LZespolona::Sprzezenie()
 {
   LZespolona Wynik;
-  Wynik.re = Skl.re;
-  Wynik.im = Skl.im *-1;
+  Wynik.set_re() = re;
+  Wynik.set_im() = im *-1;
   return Wynik;
 }
 
 
 
-double modul (LZespolona Skl)
+double LZespolona::modul()
 {
   double Wynik;
-  Wynik = (sqrt(Skl.re*Skl.re+Skl.im*Skl.im));
+  Wynik = (sqrt(re*re+im*im));
 
   Wynik=Wynik*Wynik;
   return Wynik;
 }
 
-LZespolona  operator / (LZespolona  Skl1,  LZespolona  Skl2)
+LZespolona LZespolona::operator / (  LZespolona  Skl2)
 {
   LZespolona  Wynik;
 
-  Wynik=Skl1*Sprzezenie(Skl2);
+  Wynik= (*this) * Skl2.Sprzezenie() / Skl2.modul();
   return Wynik;
 }
 
 
 
-void Wyswietl (LZespolona Skl)
+void LZespolona::Wyswietl()
 {
-  if(Skl.im<0)
+  if(im<0)
   {
    
-    cout<<"("<<Skl.re<<Skl.im<<"i)";
+    cout<<"("<<re<<im<<"i)";
   }
   else
   {
-  cout<<"("<<Skl.re<<"+"<<Skl.im<<"i)";
+  cout<<"("<<re<<"+"<<im<<"i)";
   }
 }
 
-bool Wczytaj(LZespolona &Skl, std::istream &rStrmWe)
+bool LZespolona::Wczytaj(std::istream &rStrmWe)
 {
   char znak1, znak2, znak3;
 
@@ -103,12 +103,12 @@ bool Wczytaj(LZespolona &Skl, std::istream &rStrmWe)
   {
     return false;
   }
-  rStrmWe >> Skl.re;
+  rStrmWe >> re;
   if (rStrmWe.fail())
   {
     return false;
   }
-  rStrmWe >> Skl.im;
+  rStrmWe >> im;
   if (rStrmWe.fail())
   {
     return false;
@@ -129,7 +129,7 @@ bool Wczytaj(LZespolona &Skl, std::istream &rStrmWe)
 
 ostream &operator<<(ostream &Wyj, LZespolona Skl)
 {
-  Wyj << "(" << Skl.re << showpos << Skl.im << noshowpos << "i)";
+  Wyj << "(" << Skl.get_re() << showpos << Skl.get_im() << noshowpos << "i)";
   return Wyj;
 }
 
@@ -144,10 +144,10 @@ istream &operator>>(istream &Wej, LZespolona &Skl)
 
     Wej.setstate(ios::failbit);
   }
-  Wej >> Skl.re;
+  Wej >> Skl.set_re();
 
 
-  Wej >> Skl.im;
+  Wej >> Skl.set_im();
 
   Wej >> znak2;
   if (znak2 != 'i')
@@ -164,11 +164,11 @@ istream &operator>>(istream &Wej, LZespolona &Skl)
   return Wej;
 }
 
-bool operator == (LZespolona  Skl1,  LZespolona  Skl2)
+bool LZespolona::operator == (  LZespolona  Skl2)
 {
 
 
-  if(Skl1.re == Skl2.re && Skl1.im == Skl2.im)
+  if(re == Skl2.get_re() && im == Skl2.get_im())
   {
     return true;
   }
@@ -177,9 +177,9 @@ bool operator == (LZespolona  Skl1,  LZespolona  Skl2)
 
 }
 
-bool operator != (LZespolona  Skl1,  LZespolona  Skl2)
+bool LZespolona::operator != (  LZespolona  Skl2)
 {
-  if(Skl1.re != Skl2.re || Skl1.im != Skl2.im)
+  if(re != Skl2.get_re() || im != Skl2.get_im())
   {
     return true;
   }

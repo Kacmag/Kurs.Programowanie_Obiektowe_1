@@ -15,9 +15,53 @@ using namespace std;
 /*!
  * Modeluje pojecie liczby zespolonej
  */
-struct  LZespolona {
+class  LZespolona {
+  private:
   double   re;    /*! Pole repezentuje czesc rzeczywista. */
   double   im;    /*! Pole repezentuje czesc urojona. */
+  public:
+  double &set_re()
+  {
+    return re;
+  }
+  double &set_im()
+  {
+    return im;
+  }
+  double get_re()
+  {
+    return re;
+  }
+  double get_im()
+  {
+    return im;
+  }
+
+  LZespolona()
+  {
+    re=0;
+    im=0;
+  }
+  void Wyswietl();
+  bool Wczytaj(std::istream &rStrmWe);
+  LZespolona Sprzezenie() ;
+  double modul();
+
+  LZespolona  operator + ( LZespolona  Skl2);
+  LZespolona  operator * (  LZespolona  Skl2);
+  LZespolona  operator - ( LZespolona  Skl2);
+  LZespolona  operator / (  double Skl2);
+  LZespolona  operator / ( LZespolona  Skl2);
+
+
+
+  bool operator == (  LZespolona  Skl2);
+  bool operator != (  LZespolona  Skl2);
+
+
+
+
+
 };
 
 
@@ -27,25 +71,15 @@ struct  LZespolona {
 
 
 
-LZespolona  operator + (LZespolona  Skl1,  LZespolona  Skl2);
-LZespolona  operator * (LZespolona  Skl1,  LZespolona  Skl2);
-LZespolona  operator - (LZespolona  Skl1,  LZespolona  Skl2);
-LZespolona  operator / (LZespolona  Skl1,  double Skl2);
-LZespolona  operator / (LZespolona  Skl1,  LZespolona  Skl2);
-LZespolona Sprzezenie(LZespolona Skl) ;
-double modul(LZespolona Skl);
-
-
-void Wyswietl(LZespolona Skl);
-
-
-bool Wczytaj(LZespolona &Skl, std::istream &rStrmWe);
 
 
 ostream & operator <<(ostream &Wyj, LZespolona Skl);
 istream & operator >>(istream &Wej, LZespolona &Skl);
 
-bool operator == (LZespolona  Skl1,  LZespolona  Skl2);
-bool operator != (LZespolona  Skl1,  LZespolona  Skl2);
+
+
+
+
+
 
 #endif
